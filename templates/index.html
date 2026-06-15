@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NusaSign — Edukasi Bahasa Isyarat Indonesia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+/* === TOKENS === */
+:root {
+  --font: 'DM Sans', system-ui, sans-serif;
+  --font-serif: 'DM Serif Display', Georgia, serif;
+  --r-sm:10px;--r-md:16px;--r-lg:22px;--r-xl:30px;--r-pill:999px;
+  --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
+  --ease-out:cubic-bezier(0.22,1,0.36,1);
+}
+[data-theme="light"] {
+  --orb1:#5B9CF6;--orb2:#93C5FD;--orb3:#38BDF8;--orb4:#FCD34D;
+  --bg-from:#EFF6FF;--bg-to:#DBEAFE;
+  --glass:rgba(255,255,255,0.60);
+  --glass2:rgba(255,255,255,0.42);
+  --glass3:rgba(255,255,255,0.78);
+  --gb:rgba(255,255,255,0.92);
+  --gb2:rgba(186,215,255,0.45);
+  --gs:0 8px 32px rgba(30,100,200,0.10);
+  --gsh:0 20px 48px rgba(30,100,200,0.18);
+  --text:#0f172a;--text2:#334155;--text3:#64748b;
+  --pri:#1d72e8;--prid:#1558c0;--pribg:rgba(29,114,232,0.10);
+  --acc:#3b82f6;--accbg:rgba(59,130,246,0.10);
+  --suc:#16a34a;--sucbg:rgba(22,163,74,0.12);
+  --dan:#dc2626;--danbg:rgba(220,38,38,0.12);
+  --wrn:#d97706;--wrnbg:rgba(217,119,6,0.12);
+  --bdr:rgba(100,155,230,0.22);--bdrS:rgba(100,155,230,0.44);
+  --hbg:rgba(239,246,255,0.80);
+  --foot:rgba(8,15,30,0.97);
+}
+[data-theme="dark"] {
+  --orb1:#2a4a9e;--orb2:#5e3a96;--orb3:#1a7872;--orb4:#9e6020;
+  --bg-from:#080c1a;--bg-to:#100620;
+  --glass:rgba(22,26,52,0.52);
+  --glass2:rgba(22,26,52,0.36);
+  --glass3:rgba(22,26,52,0.70);
+  --gb:rgba(60,70,120,0.40);
+  --gb2:rgba(60,70,120,0.22);
+  --gs:0 8px 32px rgba(0,0,0,0.40);
+  --gsh:0 20px 48px rgba(0,0,0,0.55);
+  --text:#e5e8f6;--text2:#8a91b0;--text3:#555a76;
+  --pri:#7a94f5;--prid:#5b78ee;--pribg:rgba(122,148,245,0.14);
+  --acc:#b8a4f8;--accbg:rgba(184,164,248,0.12);
+  --suc:#4ed898;--sucbg:rgba(78,216,152,0.12);
+  --dan:#f87070;--danbg:rgba(248,112,112,0.12);
+  --wrn:#f6b660;--wrnbg:rgba(246,182,96,0.12);
+  --bdr:rgba(70,82,140,0.28);--bdrS:rgba(70,82,140,0.50);
+  --hbg:rgba(10,12,24,0.72);
+  --foot:rgba(5,6,14,0.98);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:color .4s}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* BACKGROUND */
+.bg-canvas{position:fixed;inset:0;z-index:-2;background:linear-gradient(140deg,var(--bg-from) 0%,var(--bg-to) 100%);transition:background .6s}
+.orb{position:fixed;border-radius:50%;filter:blur(90px);opacity:.5;z-index:-1;pointer-events:none}
+[data-theme="dark"] .orb{opacity:.28}
+.o1{width:560px;height:560px;background:var(--orb1);top:-140px;left:-100px;animation:d1 15s ease-in-out infinite alternate}
+.o2{width:460px;height:460px;background:var(--orb2);top:28%;right:-110px;animation:d2 19s ease-in-out infinite alternate}
+.o3{width:380px;height:380px;background:var(--orb3);bottom:4%;left:18%;animation:d3 13s ease-in-out infinite alternate}
+.o4{width:300px;height:300px;background:var(--orb4);bottom:28%;right:12%;animation:d4 17s ease-in-out infinite alternate}
+@keyframes d1{0%{transform:translate(0,0) scale(1)}33%{transform:translate(55px,45px) scale(1.07)}66%{transform:translate(-28px,68px) scale(.94)}100%{transform:translate(38px,-28px) scale(1.04)}}
+@keyframes d2{0%{transform:translate(0,0) scale(1)}33%{transform:translate(-75px,48px) scale(1.09)}66%{transform:translate(38px,-55px) scale(.91)}100%{transform:translate(-48px,28px) scale(1.05)}}
+@keyframes d3{0%{transform:translate(0,0) scale(1)}50%{transform:translate(65px,-48px) scale(1.11)}100%{transform:translate(-38px,28px) scale(.93)}}
+@keyframes d4{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-55px,55px) scale(1.07)}100%{transform:translate(45px,-38px) scale(.96)}}
+
+/* GLASS */
+.gl{background:var(--glass);backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);border:1px solid var(--gb);box-shadow:var(--gs)}
+.gl2{background:var(--glass2);backdrop-filter:blur(14px) saturate(155%);-webkit-backdrop-filter:blur(14px) saturate(155%);border:1px solid var(--gb2);box-shadow:var(--gs)}
+.gl3{background:var(--glass3);backdrop-filter:blur(32px) saturate(200%);-webkit-backdrop-filter:blur(32px) saturate(200%);border:1px solid var(--gb);box-shadow:var(--gs)}
+
+/* SKIP */
+.skip{position:absolute;top:-60px;left:16px;z-index:9999;background:var(--pri);color:#fff;padding:10px 20px;border-radius:var(--r-pill);font-weight:600;font-size:.9rem;text-decoration:none;transition:top .2s}
+.skip:focus{top:12px}
+:focus-visible{outline:2.5px solid var(--pri);outline-offset:3px;border-radius:var(--r-sm)}
+:focus:not(:focus-visible){outline:none}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:200;background:var(--hbg);backdrop-filter:blur(26px) saturate(180%);-webkit-backdrop-filter:blur(26px) saturate(180%);border-bottom:1px solid var(--bdr);transition:background .4s}
+.hi{max-width:1200px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.logo-ico{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--pri),var(--acc));display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;box-shadow:0 4px 14px rgba(91,120,238,.38);transition:transform .3s var(--ease-spring)}
+.logo:hover .logo-ico{transform:rotate(-8deg) scale(1.1)}
+.logo-name{font-size:1.25rem;font-weight:700;color:var(--text);letter-spacing:-.01em}
+.logo-name span{color:var(--pri)}
+nav ul{display:flex;list-style:none;gap:2px}
+.nl{display:block;padding:8px 14px;border-radius:var(--r-pill);font-size:.875rem;font-weight:500;color:var(--text2);text-decoration:none;transition:all .2s;white-space:nowrap}
+.nl:hover{color:var(--text);background:var(--glass2)}
+.nl.active{color:var(--pri);background:var(--pribg);font-weight:600}
+.hr{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.xpp{display:flex;align-items:center;gap:10px;padding:6px 14px 6px 8px;border-radius:var(--r-pill);background:var(--glass2);border:1px solid var(--bdr);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--pri),var(--acc));color:#fff;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.xm{display:flex;flex-direction:column;gap:3px}
+.xl{font-size:.68rem;color:var(--text3);line-height:1}
+.xt{width:90px;height:4px;background:var(--bdr);border-radius:99px;overflow:hidden}
+.xf{height:100%;width:75%;background:linear-gradient(90deg,var(--pri),var(--acc));border-radius:99px}
+.ibtn{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:var(--r-md);background:var(--glass2);border:1px solid var(--bdr);color:var(--text2);cursor:pointer;font-size:1rem;transition:all .2s;flex-shrink:0;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.ibtn:hover{color:var(--text);background:var(--glass);border-color:var(--bdrS)}
+[data-theme="dark"] .i-sun{display:block}[data-theme="dark"] .i-moon{display:none}
+[data-theme="light"] .i-sun{display:none}[data-theme="light"] .i-moon{display:block}
+.ham{display:none}
+
+/* MOBILE NAV */
+.mnav{position:fixed;inset:0;z-index:300;display:none}
+.mnav.open{display:flex}
+.mbd{position:absolute;inset:0;background:rgba(0,0,0,.4);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mpanel{position:absolute;top:0;right:0;bottom:0;width:270px;background:var(--glass3);backdrop-filter:blur(32px) saturate(200%);-webkit-backdrop-filter:blur(32px) saturate(200%);border-left:1px solid var(--gb);padding:76px 16px 24px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;box-shadow:-20px 0 60px rgba(0,0,0,.15)}
+.mclose{position:absolute;top:14px;right:14px;width:36px;height:36px;background:var(--glass2);border:1px solid var(--bdr);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);font-size:1rem}
+.mlink{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:var(--r-md);text-decoration:none;color:var(--text2);font-weight:500;font-size:.95rem;transition:all .2s}
+.mlink:hover,.mlink.active{background:var(--pribg);color:var(--pri)}
+.mlink i{width:18px;text-align:center;opacity:.7}
+
+/* CONTAINER */
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.page{display:none;min-height:calc(100vh - 64px)}
+.page.active{display:block;animation:pi .35s var(--ease-out) forwards}
+@keyframes pi{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* HERO */
+.hero{padding:80px 0 70px}
+.hero-in{display:grid;grid-template-columns:1fr 220px;gap:48px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--gb);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:6px 14px;border-radius:var(--r-pill);font-size:.78rem;font-weight:600;color:var(--text2);margin-bottom:22px;letter-spacing:.02em}
+.hero-badge i{color:var(--wrn)}
+.hero-title{font-family:var(--font-serif);font-size:clamp(2.2rem,5vw,3.6rem);color:var(--text);line-height:1.15;margin-bottom:18px;letter-spacing:-.01em}
+.hero-title em{font-style:italic;color:var(--pri)}
+.hero-desc{font-size:1.05rem;color:var(--text2);line-height:1.75;max-width:520px;margin-bottom:32px;font-weight:400}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-main{display:inline-flex;align-items:center;gap:9px;padding:13px 28px;background:linear-gradient(135deg,var(--pri),var(--acc));color:#fff;border:none;border-radius:var(--r-pill);font-family:var(--font);font-size:.95rem;font-weight:600;cursor:pointer;box-shadow:0 6px 22px rgba(91,120,238,.35);transition:all .25s var(--ease-spring);min-height:48px;text-decoration:none}
+.btn-main:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 10px 32px rgba(91,120,238,.45)}
+.btn-main:active{transform:translateY(0) scale(.98)}
+.btn-gg{display:inline-flex;align-items:center;gap:9px;padding:12px 26px;background:var(--glass);border:1px solid var(--gb);color:var(--text);border-radius:var(--r-pill);font-family:var(--font);font-size:.95rem;font-weight:600;cursor:pointer;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:all .25s;min-height:48px;text-decoration:none}
+.btn-gg:hover{background:var(--glass3);transform:translateY(-2px)}
+.stat-cards{display:flex;flex-direction:column;gap:12px}
+.scard{padding:18px 22px;border-radius:var(--r-lg);text-align:center;animation:float 6s ease-in-out infinite}
+.scard:nth-child(2){animation-delay:-2s}
+.scard:nth-child(3){animation-delay:-4s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.snum{font-family:var(--font-serif);font-size:2rem;color:var(--text);line-height:1;margin-bottom:5px}
+.slbl{font-size:.78rem;color:var(--text3);font-weight:500}
+
+/* SECTION */
+.sp{padding:72px 0}
+.slabel{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--pri);background:var(--pribg);padding:4px 12px;border-radius:var(--r-pill);margin-bottom:12px}
+.stitle{font-family:var(--font-serif);font-size:clamp(1.7rem,3vw,2.5rem);color:var(--text);line-height:1.2;margin-bottom:12px}
+.stitle span{color:var(--pri);font-style:italic}
+.sdesc{font-size:1rem;color:var(--text2);line-height:1.7;max-width:520px;margin:0 auto}
+.sc{text-align:center;margin-bottom:48px}
+.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.fc{padding:28px 24px;border-radius:var(--r-lg);transition:all .3s var(--ease-spring)}
+.fc:hover{transform:translateY(-6px);box-shadow:var(--gsh)}
+.fi{width:52px;height:52px;border-radius:var(--r-md);background:linear-gradient(135deg,var(--pri),var(--acc));display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;margin-bottom:18px;box-shadow:0 4px 14px rgba(91,120,238,.3);transition:transform .3s var(--ease-spring)}
+.fc:hover .fi{transform:rotate(-8deg) scale(1.1)}
+.fc h3{font-size:1rem;font-weight:600;color:var(--text);margin-bottom:8px}
+.fc p{font-size:.875rem;color:var(--text2);line-height:1.7}
+
+/* PAGE TOP */
+.ptop{text-align:center;padding:52px 0 36px}
+.ptop h2{font-family:var(--font-serif);font-size:clamp(1.8rem,3.5vw,2.6rem);color:var(--text);line-height:1.2;margin-bottom:10px}
+.ptop h2 span{color:var(--pri);font-style:italic}
+.ptop p{font-size:1rem;color:var(--text2);line-height:1.7}
+
+/* GAMES */
+.gg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:18px;padding-bottom:64px}
+.gcard{border-radius:var(--r-lg);overflow:hidden;transition:all .3s var(--ease-spring)}
+.gcard:not(.disabled):hover{transform:translateY(-6px);box-shadow:var(--gsh)}
+.gcard.disabled{opacity:.6}
+.gbanner{height:150px;display:flex;align-items:center;justify-content:center;font-size:3.2rem;position:relative}
+.gbadge{position:absolute;top:12px;right:12px;font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:var(--r-pill);background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.38);color:#fff;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.gbadge.pop{background:rgba(245,168,58,.32)}
+.gbadge.nw{background:rgba(53,196,134,.32)}
+.gbody{padding:20px 22px 22px}
+.glv{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 10px;border-radius:var(--r-pill);margin-bottom:10px}
+.lvB{background:var(--pribg);color:var(--pri)}
+.lvM{background:var(--wrnbg);color:var(--wrn)}
+.lvA{background:var(--danbg);color:var(--dan)}
+.lvS{background:var(--bdr);color:var(--text3)}
+.gcard h3{font-size:1rem;font-weight:600;color:var(--text);margin-bottom:6px}
+.gcard p{font-size:.85rem;color:var(--text2);line-height:1.6;margin-bottom:14px}
+.gmeta{display:flex;gap:16px;font-size:.78rem;color:var(--text3);margin-bottom:16px}
+.gmeta span{display:flex;align-items:center;gap:5px}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font);font-size:.875rem;font-weight:600;padding:10px 20px;border-radius:var(--r-pill);border:none;cursor:pointer;transition:all .2s var(--ease-spring);min-height:44px;text-decoration:none;white-space:nowrap}
+.btn:disabled{opacity:.45;cursor:not-allowed;pointer-events:none}
+.bp{background:linear-gradient(135deg,var(--pri),var(--acc));color:#fff;box-shadow:0 4px 14px rgba(91,120,238,.3)}
+.bp:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(91,120,238,.4)}
+.bg2{background:var(--glass);border:1px solid var(--gb);color:var(--text);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.bg2:hover{background:var(--glass3);transform:translateY(-2px)}
+.bs{background:linear-gradient(135deg,var(--suc),#22c55e);color:#fff;box-shadow:0 4px 14px rgba(53,196,134,.3)}
+.bs:hover{transform:translateY(-2px);filter:brightness(1.05)}
+.bw{background:linear-gradient(135deg,var(--wrn),#f59e0b);color:#fff;box-shadow:0 4px 14px rgba(245,168,58,.28)}
+.bw:hover{transform:translateY(-2px);filter:brightness(1.05)}
+.bd{background:linear-gradient(135deg,var(--dan),#ef4444);color:#fff;box-shadow:0 4px 14px rgba(240,96,96,.25)}
+.bd:hover{transform:translateY(-2px)}
+.bgame{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:11px;background:linear-gradient(135deg,var(--pri),var(--acc));color:#fff;border:none;border-radius:var(--r-md);font-family:var(--font);font-size:.875rem;font-weight:600;cursor:pointer;transition:all .25s var(--ease-spring);min-height:44px;box-shadow:0 4px 14px rgba(91,120,238,.3)}
+.bgame:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(91,120,238,.4)}
+.bgame:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* QUIZ */
+#quiz-page .container{max-width:760px}
+.qwrap{border-radius:var(--r-xl);overflow:hidden;margin:32px 0 64px}
+.qhead{background:linear-gradient(135deg,var(--pri),var(--acc));padding:28px 32px 24px;color:#fff}
+.qht{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
+.qhead h3{font-size:1.2rem;font-weight:700;margin-bottom:4px}
+.qhead p{font-size:.82rem;opacity:.85}
+.qcnt{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:var(--r-pill);padding:4px 12px;font-size:.78rem;font-weight:600;white-space:nowrap;flex-shrink:0}
+.qpb{height:6px;background:rgba(255,255,255,.25);border-radius:99px;overflow:hidden}
+.qpf{height:100%;background:rgba(255,255,255,.85);border-radius:99px;transition:width .5s ease}
+.qbody{padding:32px}
+.qq{font-size:1.05rem;font-weight:600;color:var(--text);text-align:center;line-height:1.6;margin-bottom:28px}
+.qopts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
+@media(max-width:580px){.qopts{grid-template-columns:1fr}}
+.qopt{display:flex;align-items:center;gap:14px;background:var(--glass2);border:1.5px solid var(--bdr);border-radius:var(--r-md);padding:14px 16px;cursor:pointer;text-align:left;font-family:var(--font);font-size:.875rem;color:var(--text);transition:all .2s var(--ease-spring);min-height:44px;width:100%;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.qopt:hover{border-color:var(--pri);background:var(--pribg);transform:scale(1.01)}
+.qopt.selected{border-color:var(--pri);background:var(--pribg)}
+.qopt.correct{border-color:var(--suc);background:var(--sucbg)}
+.qopt.incorrect{border-color:var(--dan);background:var(--danbg)}
+.ol{width:34px;height:34px;flex-shrink:0;border-radius:var(--r-sm);background:var(--bdr);color:var(--text2);font-size:.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.qopt.selected .ol{background:var(--pri);color:#fff}
+.qopt.correct .ol{background:var(--suc);color:#fff}
+.qopt.incorrect .ol{background:var(--dan);color:#fff}
+.ot{font-size:.875rem;line-height:1.45}
+.qa{display:flex;justify-content:space-between;gap:12px}
+.qres{display:none;text-align:center;padding:52px 32px}
+.re{font-size:4rem;margin-bottom:16px;animation:bnc 1s var(--ease-spring)}
+@keyframes bnc{0%,100%{transform:scale(1)}40%{transform:scale(1.3)}70%{transform:scale(.95)}}
+.rt{font-family:var(--font-serif);font-size:1.8rem;color:var(--text);margin-bottom:10px}
+.rs{font-family:var(--font-serif);font-size:4rem;color:var(--pri);line-height:1;margin-bottom:12px}
+.rd{font-size:.95rem;color:var(--text2);margin-bottom:28px}
+.rbtns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* TRANSLATOR */
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:880px){.tgrid{grid-template-columns:1fr}}
+.cgl{border-radius:var(--r-lg);overflow:hidden}
+.chd{display:flex;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--bdr)}
+.chi{width:38px;height:38px;border-radius:var(--r-md);background:var(--pribg);display:flex;align-items:center;justify-content:center;color:var(--pri);font-size:.95rem}
+.chd h2{font-size:.95rem;font-weight:600;color:var(--text)}
+.cbody{padding:20px}
+.seg{display:flex;background:var(--glass2);border:1px solid var(--bdr);border-radius:var(--r-pill);padding:3px;margin-bottom:16px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.segb{flex:1;padding:7px 14px;background:transparent;border:none;border-radius:var(--r-pill);font-family:var(--font);font-size:.83rem;font-weight:600;color:var(--text3);cursor:pointer;transition:all .2s;min-height:34px}
+.segb.active{background:var(--glass3);color:var(--pri);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.camw{position:relative;width:100%;aspect-ratio:4/3;background:var(--glass2);border-radius:var(--r-md);overflow:hidden;border:1px solid var(--bdr);margin-bottom:14px}
+.camw img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.camp{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--text3);font-size:.85rem}
+.camp i{font-size:2.5rem;opacity:.5}
+.rbox{border-radius:var(--r-md);padding:14px 16px;margin-bottom:14px;border:1px solid var(--bdr)}
+.rbl{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:8px}
+.altr{font-family:var(--font-serif);font-size:4rem;color:var(--pri);text-align:center;min-height:80px;display:flex;align-items:center;justify-content:center}
+#phrase-result{margin-bottom:14px}
+.phopts{display:flex;gap:16px;margin-bottom:10px;flex-wrap:wrap}
+.phopts label{display:flex;align-items:center;gap:7px;font-size:.875rem;color:var(--text2);cursor:pointer;font-weight:500}
+.phopts input[type="radio"]{width:16px;height:16px;accent-color:var(--pri)}
+#phrase-translation{color:var(--text);background:var(--glass2);border:1px solid var(--bdr);border-radius:var(--r-md);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.cactions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.lsm{display:block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:6px}
+.ta{width:100%;min-height:106px;padding:13px 15px;background:var(--glass2);border:1.5px solid var(--bdr);border-radius:var(--r-md);font-family:var(--font);font-size:.9rem;color:var(--text);resize:vertical;line-height:1.65;transition:border-color .2s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.ta:focus{border-color:var(--pri);outline:none}
+.ta::placeholder{color:var(--text3)}
+.dpills{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.dir-btn{padding:7px 15px;background:var(--glass2);border:1.5px solid var(--bdr);border-radius:var(--r-pill);font-family:var(--font);font-size:.8rem;font-weight:600;color:var(--text2);cursor:pointer;transition:all .2s;min-height:36px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.dir-btn:hover{border-color:var(--pri);color:var(--pri)}
+.dir-btn.active{background:var(--pribg);border-color:var(--pri);color:var(--pri)}
+.tacts{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.bmg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;margin-top:16px}
+.bmc{border-radius:var(--r-md);padding:16px}
+.bmhd{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--bdr)}
+.bmtag{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:var(--pribg);color:var(--pri);padding:3px 10px;border-radius:var(--r-pill)}
+.bmtime{font-size:.72rem;color:var(--text3)}
+.bmtxt{font-size:.875rem;color:var(--text);line-height:1.6;margin-bottom:12px}
+.bmacts{display:flex;gap:8px}
+.ebm{text-align:center;padding:40px 20px;color:var(--text3);grid-column:1/-1}
+.ebm i{font-size:2.5rem;margin-bottom:10px;display:block;opacity:.5}
+.ebm p{font-size:.875rem}
+
+/* EDUKASI */
+.elayout{display:grid;grid-template-columns:1fr 2fr;gap:22px;align-items:start;padding-bottom:64px}
+@media(max-width:768px){.elayout{grid-template-columns:1fr}}
+.eimg{border-radius:var(--r-lg);overflow:hidden;position:sticky;top:80px}
+.eimg img{width:100%;height:auto;display:block}
+.ecap{padding:10px 16px;font-size:.78rem;color:var(--text3);text-align:center;border-top:1px solid var(--bdr)}
+.ltabs{display:flex;border-bottom:1px solid var(--bdr);margin-bottom:18px}
+.ltab{padding:10px 20px;background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:var(--font);font-size:.9rem;font-weight:600;color:var(--text3);cursor:pointer;transition:all .2s}
+.ltab.active{color:var(--pri);border-bottom-color:var(--pri)}
+.ltab:hover:not(.active){color:var(--text2)}
+.lc{display:none}
+.lc.active{display:block}
+.esec{border-radius:var(--r-md);padding:20px;margin-bottom:14px}
+.esec h3{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.esec h3::before{content:'';display:block;width:4px;height:16px;background:linear-gradient(to bottom,var(--pri),var(--acc));border-radius:2px;flex-shrink:0}
+.esec p{font-size:.875rem;color:var(--text2);line-height:1.75}
+.esec ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+.esec li{font-size:.875rem;color:var(--text2);line-height:1.6;display:flex;align-items:baseline;gap:9px}
+.esec li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--pri);flex-shrink:0;margin-top:8px}
+
+/* COMMUNITY */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:16px;padding-bottom:64px}
+.ccrd{border-radius:var(--r-lg);padding:24px;display:flex;flex-direction:column;gap:10px;transition:all .3s var(--ease-spring)}
+.ccrd:hover{transform:translateY(-5px);box-shadow:var(--gsh)}
+.cico{width:50px;height:50px;border-radius:var(--r-md);background:linear-gradient(135deg,var(--pri),var(--acc));display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;box-shadow:0 4px 14px rgba(91,120,238,.3)}
+.ccrd h3{font-size:.95rem;font-weight:600;color:var(--text)}
+.ccrd p{font-size:.85rem;color:var(--text2);line-height:1.65;flex:1}
+
+/* ABOUT */
+.awrap{max-width:760px;margin:0 auto;padding-bottom:64px}
+.acrd{border-radius:var(--r-xl);overflow:hidden}
+.abanner{background:linear-gradient(135deg,var(--pri),var(--acc));padding:52px 40px;text-align:center;color:#fff}
+.abanner h2{font-family:var(--font-serif);font-size:2.2rem;margin-bottom:14px}
+.abanner p{font-size:1rem;opacity:.88;line-height:1.7;max-width:500px;margin:0 auto}
+.astats{display:flex;border-top:1px solid var(--bdr)}
+.astat{flex:1;padding:24px;text-align:center;border-right:1px solid var(--bdr)}
+.astat:last-child{border-right:none}
+.abig{font-family:var(--font-serif);font-size:2.2rem;color:var(--pri);line-height:1;margin-bottom:6px}
+.asm{font-size:.78rem;color:var(--text3)}
+.abody{padding:36px 40px}
+.abody p{font-size:.95rem;color:var(--text2);line-height:1.8;margin-bottom:16px}
+.abody h3{font-size:1.05rem;font-weight:700;color:var(--text);margin:28px 0 12px}
+
+/* FOOTER */
+footer{background:var(--foot);color:rgba(255,255,255,.8);padding:56px 0 0;margin-top:60px;border-top:1px solid var(--bdr)}
+.fgrid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.flogo{display:flex;align-items:center;gap:10px;margin-bottom:14px;text-decoration:none}
+.flico{width:34px;height:34px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.9rem}
+.flname{font-size:1.15rem;font-weight:700;color:#fff}
+.fbrand>p{font-size:.83rem;line-height:1.7;color:rgba(255,255,255,.5);margin-bottom:18px}
+.socs{display:flex;gap:9px}
+.sb{width:34px;height:34px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);font-size:.8rem;text-decoration:none;transition:all .2s}
+.sb:hover{background:rgba(255,255,255,.14);color:#fff}
+.fc2 h4{font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px}
+.fc2 ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.fc2 a{font-size:.85rem;color:rgba(255,255,255,.6);text-decoration:none;transition:color .2s}
+.fc2 a:hover{color:#fff}
+.fbot{border-top:1px solid rgba(255,255,255,.08);padding:18px 0;text-align:center;font-size:.8rem;color:rgba(255,255,255,.35)}
+
+
+/* ═══ INTERACTIVE ENHANCEMENTS ═══ */
+
+/* Ripple effect */
+.ripple-host{position:relative;overflow:hidden!important}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.30);transform:scale(0);animation:ripple-anim .6s ease-out forwards;pointer-events:none;z-index:10}
+@keyframes ripple-anim{0%{transform:scale(0);opacity:1}100%{transform:scale(1);opacity:0}}
+
+/* Counter animation */
+.count-num{display:inline-block;transition:transform .3s var(--ease-spring)}
+.count-num.pop{animation:npop .4s var(--ease-spring)}
+@keyframes npop{0%{transform:scale(1)}40%{transform:scale(1.25)}100%{transform:scale(1)}}
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s var(--ease-out),transform .55s var(--ease-out)}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+/* Feature card shine */
+.fc{isolation:isolate}
+.fc::after{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.22) 50%,transparent 60%);transform:translateX(-100%);transition:transform .55s ease}
+.fc:hover::after{transform:translateX(100%)}
+.fc{position:relative}
+
+/* Pulse badge */
+.pulse-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--suc);margin-right:6px;animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(22,163,74,.6)}70%{box-shadow:0 0 0 7px rgba(22,163,74,0)}}
+
+/* Typing cursor for hero */
+.type-cursor::after{content:'|';animation:blink .8s step-end infinite;color:var(--pri)}
+@keyframes blink{50%{opacity:0}}
+
+/* Language selector */
+.lang-select-wrap{position:relative;margin:14px 0}
+.lang-row{display:flex;align-items:center;gap:10px;margin:14px 0}
+.lang-pick{flex:1;min-width:0;position:relative}
+.lang-pick-btn{width:100%;display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--glass2);border:1.5px solid var(--bdr);border-radius:var(--r-md);font-family:var(--font);font-size:.875rem;font-weight:600;color:var(--text);cursor:pointer;transition:all .2s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);text-align:left}
+.lang-pick-btn:hover,.lang-pick-btn.open{border-color:var(--pri);background:var(--pribg)}
+.lang-pick-btn .flag{font-size:1.1rem;flex-shrink:0}
+.lang-pick-btn .lname{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lang-pick-btn .chev{color:var(--text3);font-size:.75rem;transition:transform .2s;flex-shrink:0}
+.lang-pick-btn.open .chev{transform:rotate(180deg)}
+.lang-dropdown{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:500;background:var(--glass3);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--gb);border-radius:var(--r-lg);box-shadow:var(--gsh);overflow:hidden;display:none;max-height:280px;flex-direction:column}
+.lang-dropdown.open{display:flex}
+.lang-search{padding:10px 12px;border-bottom:1px solid var(--bdr);background:transparent}
+.lang-search input{width:100%;background:var(--glass2);border:1px solid var(--bdr);border-radius:var(--r-md);padding:7px 12px;font-family:var(--font);font-size:.83rem;color:var(--text);outline:none}
+.lang-search input::placeholder{color:var(--text3)}
+.lang-list{overflow-y:auto;flex:1}
+.lang-opt{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;font-size:.875rem;font-weight:500;color:var(--text2);transition:all .15s;border:none;background:none;width:100%;text-align:left;font-family:var(--font)}
+.lang-opt:hover,.lang-opt.sel{background:var(--pribg);color:var(--pri)}
+.lang-opt .lflag{font-size:1.1rem;width:22px;flex-shrink:0}
+.lang-opt .lcode{font-size:.68rem;font-weight:700;color:var(--text3);margin-left:auto;text-transform:uppercase;letter-spacing:.04em}
+.swap-btn{width:42px;height:42px;flex-shrink:0;border-radius:var(--r-md);background:var(--glass2);border:1.5px solid var(--bdr);color:var(--pri);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .25s var(--ease-spring)}
+.swap-btn:hover{background:var(--pribg);border-color:var(--pri);transform:rotate(180deg) scale(1.1)}
+
+/* Char counter */
+.ta-wrap{position:relative}
+.char-count{position:absolute;bottom:8px;right:12px;font-size:.68rem;color:var(--text3);pointer-events:none}
+.char-count.warn{color:var(--wrn)}
+.char-count.over{color:var(--dan)}
+
+/* Toast notification */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--glass3);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--gb);border-radius:var(--r-pill);padding:12px 22px;font-size:.875rem;font-weight:600;color:var(--text);box-shadow:var(--gsh);z-index:9000;transition:transform .35s var(--ease-spring),opacity .35s ease;opacity:0;white-space:nowrap;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+.toast i{margin-right:8px}
+.toast.ok i{color:var(--suc)}
+.toast.err i{color:var(--dan)}
+
+/* XP animation on scroll-trigger */
+@keyframes xp-grow{from{width:0}to{width:75%}}
+.xf-anim{animation:xp-grow 1.4s var(--ease-out) forwards}
+
+/* Scroll-to-top */
+.scrtop{position:fixed;bottom:28px;right:24px;width:44px;height:44px;border-radius:var(--r-md);background:var(--glass);border:1px solid var(--gb);color:var(--pri);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:var(--gs);transition:all .25s var(--ease-spring);opacity:0;transform:translateY(12px);z-index:800}
+.scrtop.show{opacity:1;transform:translateY(0)}
+.scrtop:hover{background:var(--pri);color:#fff;transform:translateY(-3px)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){.fgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){nav{display:none}.ham{display:flex}.xpp{display:none}}
+@media(max-width:768px){.hero-in{grid-template-columns:1fr}.stat-cards{display:none}.fg{grid-template-columns:1fr}}
+@media(max-width:600px){.fgrid{grid-template-columns:1fr}.astats{flex-direction:column}.astat{border-right:none;border-bottom:1px solid var(--bdr)}.astat:last-child{border-bottom:none}.abody{padding:26px 22px}.abanner{padding:38px 22px}}
+</style>
+</head>
+<body>
+<div class="bg-canvas" aria-hidden="true"></div>
+<div class="orb o1" aria-hidden="true"></div>
+<div class="orb o2" aria-hidden="true"></div>
+<div class="orb o3" aria-hidden="true"></div>
+<div class="orb o4" aria-hidden="true"></div>
+<a class="skip" href="#main">Langsung ke konten utama</a>
+
+<header>
+  <div class="hi">
+    <a class="logo" href="#" id="home-link" aria-label="NusaSign beranda">
+      <div class="logo-ico" aria-hidden="true"><i class="fas fa-hands"></i></div>
+      <span class="logo-name">Nusa<span>Sign</span></span>
+    </a>
+    <nav aria-label="Navigasi utama">
+      <ul>
+        <li><a class="nl active" href="#" id="home-nav">Beranda</a></li>
+        <li><a class="nl" href="#" id="translator-nav">Translator</a></li>
+        <li><a class="nl" href="#" id="games-nav">Games</a></li>
+        <li><a class="nl" href="#" id="edukasi-nav">Edukasi</a></li>
+        <li><a class="nl" href="#" id="community-nav">Komunitas</a></li>
+        <li><a class="nl" href="#" id="about-nav">Tentang</a></li>
+      </ul>
+    </nav>
+    <div class="hr">
+      <div class="xpp" role="status" aria-label="Level 7, 850 XP">
+        <div class="av" aria-hidden="true">A</div>
+        <div class="xm">
+          <span class="xl">Level 7 · 850 XP</span>
+          <div class="xt" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><div class="xf"></div></div>
+        </div>
+      </div>
+      <button class="ibtn" id="theme-btn" aria-label="Toggle tema gelap/terang">
+        <i class="fas fa-sun i-sun" aria-hidden="true"></i>
+        <i class="fas fa-moon i-moon" aria-hidden="true"></i>
+      </button>
+      <button class="ibtn ham" id="ham-btn" aria-label="Buka menu" aria-expanded="false" aria-controls="mob-nav">
+        <i class="fas fa-bars" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mnav" id="mob-nav" role="dialog" aria-label="Menu navigasi" aria-modal="true">
+  <div class="mbd" id="mbd"></div>
+  <nav class="mpanel">
+    <button class="mclose" id="mclose" aria-label="Tutup menu"><i class="fas fa-times" aria-hidden="true"></i></button>
+    <a class="mlink active" href="#" data-page="home"><i class="fas fa-home"></i> Beranda</a>
+    <a class="mlink" href="#" data-page="translator"><i class="fas fa-language"></i> Translator</a>
+    <a class="mlink" href="#" data-page="games"><i class="fas fa-gamepad"></i> Games</a>
+    <a class="mlink" href="#" data-page="edukasi"><i class="fas fa-book-open"></i> Edukasi</a>
+    <a class="mlink" href="#" data-page="community"><i class="fas fa-users"></i> Komunitas</a>
+    <a class="mlink" href="#" data-page="about"><i class="fas fa-info-circle"></i> Tentang</a>
+  </nav>
+</div>
+
+<main id="main">
+
+<!-- HOME -->
+<div class="page active" id="home-page">
+<div class="container">
+<section class="hero" aria-labelledby="hero-h">
+  <div class="hero-in">
+    <div>
+      <div class="hero-badge"><span class="pulse-dot" aria-hidden="true"></span>Platform Bahasa Isyarat #1 Indonesia</div>
+      <h1 class="hero-title" id="hero-h">Belajar <em>BISINDO</em><br>dengan Cara<br>Menyenangkan</h1>
+      <p class="hero-desc">Platform edukasi interaktif untuk mempelajari bahasa isyarat Indonesia melalui games, kuis, dan penerjemah gestur berbasis kamera.</p>
+      <div class="hero-btns">
+        <button class="btn-main ripple-host" id="start-learning"><i class="fas fa-play" aria-hidden="true"></i> Mulai Belajar Gratis</button>
+        <a class="btn-gg" href="#" id="learn-more-btn"><i class="fas fa-book-open" aria-hidden="true"></i> Lihat Edukasi</a>
+      </div>
+    </div>
+    <div class="stat-cards" aria-label="Statistik" role="list">
+      <div class="scard gl" role="listitem"><div class="snum">100+</div><div class="slbl">Pengguna Terdaftar</div></div>
+      <div class="scard gl" role="listitem"><div class="snum">10+</div><div class="slbl">Kata &amp; Frasa</div></div>
+      <div class="scard gl" role="listitem"><div class="snum">97%</div><div class="slbl">Kepuasan Pengguna</div></div>
+    </div>
+  </div>
+</section>
+<section class="sp" aria-labelledby="feat-h">
+  <div class="sc">
+    <div class="slabel">Keunggulan</div>
+    <h2 class="stitle" id="feat-h">Mengapa Belajar di <span>NusaSign</span>?</h2>
+    <p class="sdesc">Kami menggabungkan teknologi dan gamifikasi agar belajar bahasa isyarat benar-benar menyenangkan.</p>
+  </div>
+  <div class="fg" role="list">
+    <article class="fc gl reveal" role="listitem">
+      <div class="fi" aria-hidden="true"><i class="fas fa-gamepad"></i></div>
+      <h3>Belajar Sambil Bermain</h3>
+      <p>Metode pembelajaran melalui games dan kuis interaktif yang membuat belajar terasa seperti bermain.</p>
+    </article>
+    <article class="fc gl reveal" role="listitem" style="transition-delay:.1s">
+      <div class="fi" aria-hidden="true"><i class="fas fa-map-marked-alt"></i></div>
+      <h3>Bahasa Daerah</h3>
+      <p>Pelajari isyarat khas dari berbagai daerah di Indonesia, mulai dari Bahasa Indonesia hingga Basa Sunda.</p>
+    </article>
+    <article class="fc gl reveal" role="listitem" style="transition-delay:.2s">
+      <div class="fi" aria-hidden="true"><i class="fas fa-hands"></i></div>
+      <h3>Praktik Langsung</h3>
+      <p>Teknologi deteksi gestur tangan berbasis kamera untuk memeriksa isyarat yang Anda buat secara real-time.</p>
+    </article>
+  </div>
+</section>
+</div>
+</div>
+
+<!-- GAMES -->
+<div class="page" id="games-page">
+<div class="container">
+<div class="ptop"><h2>Games <span>Edukatif</span></h2><p>Pilih game untuk mulai belajar bahasa isyarat dengan cara menyenangkan</p></div>
+<div class="gg" role="list">
+  <article class="gcard gl" role="listitem">
+    <div class="gbanner" style="background:linear-gradient(135deg,#5b78ee,#7c5fd4);" aria-hidden="true"><i class="fas fa-question-circle"></i><span class="gbadge pop">Populer</span></div>
+    <div class="gbody">
+      <span class="glv lvB">Pemula</span><h3>Kuis BISINDO Dasar</h3>
+      <p>Uji pengetahuan Anda tentang Bahasa Isyarat Indonesia melalui 5 pertanyaan pilihan ganda.</p>
+      <div class="gmeta"><span><i class="fas fa-medal" aria-hidden="true"></i> 200 XP</span><span><i class="fas fa-trophy" aria-hidden="true"></i> Level 1/5</span></div>
+      <button class="bgame start-quiz" data-quiz="bisindo" aria-label="Mulai Kuis BISINDO Dasar"><i class="fas fa-play" aria-hidden="true"></i> Main Sekarang</button>
+    </div>
+  </article>
+  <article class="gcard gl" role="listitem">
+    <div class="gbanner" style="background:linear-gradient(135deg,#f5a83a,#e97c3c);" aria-hidden="true"><i class="fas fa-font"></i></div>
+    <div class="gbody">
+      <span class="glv lvB">Pemula</span><h3>Game Alfabet BISINDO</h3>
+      <p>Pelajari alfabet bahasa isyarat Indonesia melalui permainan interaktif dan menarik.</p>
+      <div class="gmeta"><span><i class="fas fa-medal" aria-hidden="true"></i> 150 XP</span><span><i class="fas fa-trophy" aria-hidden="true"></i> Level 3/5</span></div>
+      <button class="bgame start-quiz" data-quiz="alfabet" aria-label="Mulai Game Alfabet BISINDO"><i class="fas fa-play" aria-hidden="true"></i> Main Sekarang</button>
+    </div>
+  </article>
+  <article class="gcard gl" role="listitem">
+    <div class="gbanner" style="background:linear-gradient(135deg,#35c486,#1e9e6b);" aria-hidden="true"><i class="fas fa-hands-helping"></i><span class="gbadge nw">Baru</span></div>
+    <div class="gbody">
+      <span class="glv lvM">Menengah</span><h3>Game Salam Daerah</h3>
+      <p>Pelajari salam khas dari berbagai daerah di Indonesia dalam bentuk isyarat.</p>
+      <div class="gmeta"><span><i class="fas fa-medal" aria-hidden="true"></i> 250 XP</span><span><i class="fas fa-trophy" aria-hidden="true"></i> Level 1/5</span></div>
+      <button class="bgame start-quiz" data-quiz="salam" aria-label="Mulai Game Salam Daerah"><i class="fas fa-play" aria-hidden="true"></i> Main Sekarang</button>
+    </div>
+  </article>
+  <article class="gcard gl disabled" role="listitem" aria-disabled="true">
+    <div class="gbanner" style="background:linear-gradient(135deg,#8b5cf6,#6d3eca);" aria-hidden="true"><i class="fas fa-lock"></i></div>
+    <div class="gbody"><span class="glv lvS">Segera Hadir</span><h3>Game Makanan Tradisional</h3><p>Sedang dalam pengembangan. Segera tersedia!</p><div class="gmeta"><span><i class="fas fa-medal" aria-hidden="true"></i> 350 XP</span><span><i class="fas fa-trophy" aria-hidden="true"></i> Level 0/5</span></div><button class="bgame" disabled aria-label="Belum tersedia"><i class="fas fa-clock" aria-hidden="true"></i> Segera Hadir</button></div>
+  </article>
+  <article class="gcard gl disabled" role="listitem" aria-disabled="true">
+    <div class="gbanner" style="background:linear-gradient(135deg,#f5a83a,#d97706);" aria-hidden="true"><i class="fas fa-lock"></i></div>
+    <div class="gbody"><span class="glv lvS">Segera Hadir</span><h3>Game Belanja Sehari-hari</h3><p>Sedang dalam pengembangan. Segera tersedia!</p><div class="gmeta"><span><i class="fas fa-medal" aria-hidden="true"></i> 180 XP</span><span><i class="fas fa-trophy" aria-hidden="true"></i> Level 0/5</span></div><button class="bgame" disabled aria-label="Belum tersedia"><i class="fas fa-clock" aria-hidden="true"></i> Segera Hadir</button></div>
+  </article>
+  <article class="gcard gl disabled" role="listitem" aria-disabled="true">
+    <div class="gbanner" style="background:linear-gradient(135deg,#ec4899,#be185d);" aria-hidden="true"><i class="fas fa-lock"></i><span class="gbadge">Soon</span></div>
+    <div class="gbody"><span class="glv lvS">Segera Hadir</span><h3>Game Ekspresi Emosi</h3><p>Sedang dalam pengembangan. Segera tersedia!</p><div class="gmeta"><span><i class="fas fa-medal" aria-hidden="true"></i> 300 XP</span><span><i class="fas fa-trophy" aria-hidden="true"></i> Level 0/5</span></div><button class="bgame" disabled aria-label="Belum tersedia"><i class="fas fa-clock" aria-hidden="true"></i> Segera Hadir</button></div>
+  </article>
+</div>
+</div>
+</div>
+
+<!-- QUIZ -->
+<div class="page" id="quiz-page"><div class="container"></div></div>
+
+<!-- TRANSLATOR -->
+<div class="page" id="translator-page">
+<div class="container" style="padding-top:40px;padding-bottom:64px;">
+<div class="ptop" style="padding-top:0;"><h2>Penerjemah <span>BISINDO</span></h2><p>Terjemahkan gestur tangan ke teks, atau teks antar bahasa secara instan.</p></div>
+<div class="tgrid">
+  <section class="cgl gl" aria-labelledby="g-t">
+    <div class="chd"><div class="chi" aria-hidden="true"><i class="fas fa-video"></i></div><h2 id="g-t">Deteksi Gestur Tangan</h2></div>
+    <div class="cbody">
+      <div class="seg" role="group" aria-label="Mode deteksi">
+        <button id="alphabet-mode" class="segb active" aria-pressed="true">Alphabet</button>
+        <button id="phrase-mode" class="segb" aria-pressed="false">Kata / Frasa</button>
+      </div>
+      <div class="camw" aria-label="Kamera">
+        <div class="camp"><i class="fas fa-camera" aria-hidden="true"></i><span>Tekan Mulai Kamera</span></div>
+        <img id="video-stream" src="/video?mode=letter" width="640" height="480" alt="Stream kamera deteksi gestur" style="display:none;"/>
+      </div>
+      <div id="alphabet-result" class="rbox gl2" aria-live="polite">
+        <div class="rbl">Hasil Alphabet</div>
+        <div id="alphabet-letter" class="altr" role="status">–</div>
+      </div>
+      <div id="phrase-result" style="display:none;">
+        <fieldset style="border:none;padding:0;margin:0 0 10px;">
+          <legend style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:8px;">Terjemahkan ke</legend>
+          <select id="lang-select" style="width:100%;padding:9px 12px;border-radius:10px;border:1px solid var(--bdr);font-family:var(--font);font-size:.9rem;cursor:pointer;background:var(--glass2);color:var(--text);backdrop-filter:blur(8px)">
+            <option value="">— Indonesia saja —</option>
+            <option value="su">🌿 Sunda</option>
+            <option value="jv">☕ Jawa</option>
+            <option value="ban">🌺 Bali</option>
+            <option value="min">🏔️ Minangkabau</option>
+            <option value="bug">⚓ Bugis</option>
+            <option value="ace">🌊 Aceh</option>
+            <option value="bjn">🌿 Banjar</option>
+            <option value="ms">🦁 Melayu</option>
+            <option value="mad">🌾 Madura</option>
+            <option value="mak">🏝️ Makassar</option>
+          </select>
+        </fieldset>
+        <div id="phrase-translation" role="status" aria-live="polite" style="font-size:2.4rem;font-weight:700;text-align:center;padding:20px 12px;min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;line-height:1.2">
+          <span style="font-size:.9rem;font-weight:400;color:var(--text3)">Belum ada kata terdeteksi</span>
+        </div>
+      </div>
+      <div class="cactions">
+        <button class="btn bp" onclick="startCamera()" aria-label="Mulai kamera"><i class="fas fa-camera" aria-hidden="true"></i> Mulai Kamera</button>
+        <button class="btn bg2" onclick="resetCamera()" aria-label="Reset kamera"><i class="fas fa-redo" aria-hidden="true"></i> Reset</button>
+      </div>
+    </div>
+  </section>
+  <section class="cgl gl" aria-labelledby="t-t">
+    <div class="chd"><div class="chi" aria-hidden="true"><i class="fas fa-language"></i></div><h2 id="t-t">Penerjemah Teks</h2></div>
+    <div class="cbody">
+      <label class="lsm" for="text-input">Teks Masukan</label>
+      <div class="ta-wrap">
+        <textarea id="text-input" class="ta" placeholder="Masukkan teks untuk diterjemahkan..." aria-describedby="t-hint" maxlength="500"></textarea>
+        <span class="char-count" id="char-count">0/500</span>
+      </div>
+      <p id="t-hint" style="font-size:.75rem;color:var(--text3);margin-top:5px;margin-bottom:0;">Tekan Enter untuk menerjemahkan</p>
+      <!-- Language picker -->
+      <div class="lang-row" role="group" aria-label="Pilih bahasa asal dan tujuan">
+        <div class="lang-pick" id="from-pick">
+          <button class="lang-pick-btn" id="from-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Bahasa asal">
+            <span class="flag">🇮🇩</span>
+            <span class="lname">Indonesia</span>
+            <i class="fas fa-chevron-down chev" aria-hidden="true"></i>
+          </button>
+          <div class="lang-dropdown" id="from-drop" role="listbox" aria-label="Pilih bahasa asal">
+            <div class="lang-search"><input type="text" placeholder="Cari bahasa..." id="from-search" aria-label="Cari bahasa asal"/></div>
+            <div class="lang-list" id="from-list"></div>
+          </div>
+        </div>
+        <button class="swap-btn" id="swap-langs" aria-label="Tukar bahasa asal dan tujuan"><i class="fas fa-arrow-right-arrow-left" aria-hidden="true"></i></button>
+        <div class="lang-pick" id="to-pick">
+          <button class="lang-pick-btn" id="to-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Bahasa tujuan">
+            <span class="flag">🏝️</span>
+            <span class="lname">Sunda</span>
+            <i class="fas fa-chevron-down chev" aria-hidden="true"></i>
+          </button>
+          <div class="lang-dropdown" id="to-drop" role="listbox" aria-label="Pilih bahasa tujuan">
+            <div class="lang-search"><input type="text" placeholder="Cari bahasa..." id="to-search" aria-label="Cari bahasa tujuan"/></div>
+            <div class="lang-list" id="to-list"></div>
+          </div>
+        </div>
+      </div>
+      <label class="lsm" for="text-output">Hasil Terjemahan</label>
+      <textarea id="text-output" class="ta" placeholder="Hasil terjemahan..." readonly aria-live="polite"></textarea>
+      <div class="tacts">
+        <button class="btn bp ripple-host" id="translate-btn"><i class="fas fa-exchange-alt" aria-hidden="true"></i> Terjemahkan</button>
+        <button class="btn bs ripple-host" onclick="speakTranslation()" aria-label="Ucapkan hasil"><i class="fas fa-volume-up" aria-hidden="true"></i> Ucapkan</button>
+        <button class="btn bw ripple-host" onclick="saveBookmark('text')" aria-label="Simpan bookmark"><i class="fas fa-bookmark" aria-hidden="true"></i> Simpan</button>
+      </div>
+    </div>
+  </section>
+</div>
+<section class="cgl gl" style="margin-top:18px;" aria-labelledby="bm-t">
+  <div class="chd"><div class="chi" aria-hidden="true"><i class="fas fa-bookmark"></i></div><h2 id="bm-t">Bookmark Terjemahan</h2></div>
+  <div class="cbody">
+    <div class="bmg" id="bookmarks-grid" aria-live="polite">
+      <div class="ebm"><i class="fas fa-book-open" aria-hidden="true"></i><strong style="display:block;margin-bottom:6px;color:var(--text2);">Belum ada bookmark tersimpan</strong><p>Simpan hasil terjemahan untuk melihatnya di sini</p></div>
+    </div>
+  </div>
+</section>
+</div>
+</div>
+
+<!-- EDUKASI -->
+<div class="page" id="edukasi-page">
+<div class="container" style="padding-top:40px;">
+<div class="ptop" style="padding-top:0;"><h2>Abjad <span>BISINDO</span></h2><p>Panduan lengkap Bahasa Isyarat Indonesia untuk semua orang.</p></div>
+<div class="elayout">
+  <div class="eimg gl">
+    <img src="abjad-bisindo.png" alt="Gambar abjad BISINDO: 26 huruf alfabet dalam bentuk isyarat tangan"/>
+    <p class="ecap">Abjad BISINDO (Sumber: Wikipedia)</p>
+  </div>
+  <div>
+    <div class="ltabs" role="tablist" aria-label="Pilih bahasa konten">
+      <button class="ltab active language-tab" role="tab" data-lang="id" aria-selected="true" id="tab-id" aria-controls="id-content">Bahasa Indonesia</button>
+      <button class="ltab language-tab" role="tab" data-lang="su" aria-selected="false" id="tab-su" aria-controls="su-content">Basa Sunda</button>
+    </div>
+    <div class="lc active language-content" id="id-content" role="tabpanel" aria-labelledby="tab-id">
+      <div class="esec gl2"><h3>Apa itu BISINDO?</h3><p>BISINDO adalah singkatan dari Bahasa Isyarat Indonesia — bahasa visual yang digunakan oleh komunitas Tuli di Indonesia. BISINDO bukan sekadar gerakan tangan, tetapi merupakan bahasa lengkap dengan aturan gramatika, struktur kalimat, dan kosakata yang kaya.</p></div>
+      <div class="esec gl2"><h3>Kenapa BISINDO Penting?</h3><ul><li>Membuka akses komunikasi bagi teman Tuli dan orang Dengar.</li><li>Mendukung hak atas pendidikan dan informasi bagi penyandang disabilitas.</li><li>Menumbuhkan rasa empati, toleransi, dan keberagaman bahasa di Indonesia.</li></ul></div>
+      <div class="esec gl2"><h3>Ciri Khas BISINDO</h3><ul><li>Visual dan gestural: Menggunakan gerakan tangan, tubuh, dan ekspresi wajah.</li><li>Beragam dialek: BISINDO berbeda-beda di tiap daerah.</li><li>Berasal dari komunitas Tuli: Berkembang alami, bukan buatan lembaga resmi.</li><li>Tidak sama dengan SIBI: SIBI dibuat berdasarkan struktur Bahasa Indonesia tertulis.</li></ul></div>
+      <div class="esec gl2"><h3>Elemen Dasar dalam BISINDO</h3><ul><li>Gerakan Tangan: Dasar komunikasi.</li><li>Ekspresi Wajah: Menunjukkan emosi dan makna.</li><li>Posisi Tubuh: Arah tubuh memengaruhi makna.</li><li>Fingerspelling: Mengeja kata atau nama dengan jari.</li></ul></div>
+      <div class="esec gl2"><h3>Contoh Isyarat Dasar BISINDO</h3><ul><li>Saya: Telunjuk diarahkan ke dada</li><li>Kamu: Telunjuk diarahkan ke lawan bicara</li><li>Terima Kasih: Telapak tangan dari mulut ke depan</li><li>Maaf: Telapak tangan menyentuh dada, kepala menunduk</li><li>Makan: Tangan seperti sendok diarahkan ke mulut</li></ul></div>
+      <div class="esec gl2"><h3>Etika Dasar Saat Menggunakan BISINDO</h3><ul><li>Lakukan kontak mata saat berbicara.</li><li>Gunakan gerakan yang jelas dan tidak terburu-buru.</li><li>Ekspresi wajah aktif dan sesuai konteks.</li><li>Jangan mengasihani, tapi hormati cara komunikasi mereka.</li></ul></div>
+      <div class="esec gl2"><h3>Siapa yang Perlu Belajar BISINDO?</h3><p>Semua orang! Guru, siswa, petugas publik, tenaga kesehatan, dan masyarakat umum perlu belajar BISINDO untuk menciptakan Indonesia yang lebih inklusif.</p></div>
+    </div>
+    <div class="lc language-content" id="su-content" role="tabpanel" aria-labelledby="tab-su">
+      <div class="esec gl2"><h3>Apa itu BISINDO?</h3><p>BISINDO nyaeta singgetan tina Basa Isyarat Indonesia — basa visual nu dipake ku komunitas Tuli di Indonesia keur komunikasi. BISINDO lain saukur gerakan leungeun, tapi mangrupakeun basa lengkep nu miboga aturan gramatika, struktur kalimah, jeung kabeungharan kecap.</p></div>
+      <div class="esec gl2"><h3>Kenapa BISINDO Penting?</h3><ul><li>Muka akses komunikasi pikeun babaturan Tuli jeung jalma nu ngadenge.</li><li>Ngarojong hak atikan jeung informasi pikeun panyandang disabilitas.</li><li>Numbuhkeun empati, toleransi, jeung rupa-rupa basa di Indonesia.</li></ul></div>
+      <div class="esec gl2"><h3>Ciri Khas BISINDO</h3><ul><li>Visual jeung gestural: Make gerakan leungeun, awak, jeung ekspresi raray.</li><li>Dialekna rupa-rupa: BISINDO beda-beda di tiap daerah.</li><li>Asalna ti komunitas Tuli: Tumbuh sacara alami.</li><li>Beda jeung SIBI: SIBI didasarkeun kana basa tulis resmi.</li></ul></div>
+      <div class="esec gl2"><h3>Elemen Dasar dalam BISINDO</h3><ul><li>Gerakan Leungeun: Dasar komunikasi.</li><li>Ekspresi Raray: Nunjukkeun rasa jeung harti.</li><li>Posisi Awak: Arah awak bisa ngarobah harti.</li><li>Fingerspelling: Ngeja kecap atawa ngaran ku leungeun.</li></ul></div>
+      <div class="esec gl2"><h3>Contoh Isyarat Dasar BISINDO</h3><ul><li>Kuring: nunjuk ka dada</li><li>Anjeun: nunjuk ka nu diajak ngobrol</li><li>Hatur nuhun: leungeun ti gado ka hareup</li><li>Hapunten: leungeun nyentuh dada</li><li>Dahar: leungeun siga sendok ka mulut</li></ul></div>
+      <div class="esec gl2"><h3>Etika Dasar Saat Menggunakan BISINDO</h3><ul><li>Jaga tatapan panon.</li><li>Gerakan kudu jelas jeung henteu buru-buru.</li><li>Ekspresi raray kudu aktif.</li><li>Hormat ka komunitas Tuli, lain dikasihani.</li></ul></div>
+      <div class="esec gl2"><h3>Siapa yang Perlu Belajar BISINDO?</h3><p>Sadayana! Guru, siswa, palayan publik, tanaga kasehatan, jeung masarakat umum kudu diajar BISINDO supaya leuwih inklusif.</p></div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- KOMUNITAS -->
+<div class="page" id="community-page">
+<div class="container" style="padding-top:40px;">
+<div class="ptop" style="padding-top:0;"><h2>Komunitas <span>NusaSign</span></h2><p>Bergabunglah dengan komunitas pembelajaran bahasa isyarat terbesar di Indonesia</p></div>
+<div class="cgrid" role="list">
+  <article class="ccrd gl" role="listitem"><div class="cico" aria-hidden="true"><i class="fas fa-comments"></i></div><h3>Forum Diskusi</h3><p>Berdiskusi, bertanya, dan berbagi pengalaman dengan anggota komunitas lainnya.</p><button class="btn bp">Lihat Forum</button></article>
+  <article class="ccrd gl" role="listitem"><div class="cico" aria-hidden="true"><i class="fas fa-calendar-alt"></i></div><h3>Event &amp; Workshop</h3><p>Ikuti workshop online dan offline untuk meningkatkan kemampuan bahasa isyarat Anda.</p><button class="btn bp">Lihat Jadwal</button></article>
+  <article class="ccrd gl" role="listitem"><div class="cico" aria-hidden="true"><i class="fas fa-user-friends"></i></div><h3>Study Group</h3><p>Temukan kelompok belajar sesuai level dan lokasi Anda untuk belajar bersama.</p><button class="btn bp">Cari Grup</button></article>
+  <article class="ccrd gl" role="listitem"><div class="cico" aria-hidden="true"><i class="fas fa-trophy"></i></div><h3>Kompetisi</h3><p>Ikuti kompetisi bahasa isyarat bulanan dan menangkan hadiah menarik.</p><button class="btn bp">Ikuti Kompetisi</button></article>
+  <article class="ccrd gl" role="listitem"><div class="cico" aria-hidden="true"><i class="fas fa-video"></i></div><h3>Video Komunitas</h3><p>Koleksi video pembelajaran yang dibuat oleh anggota komunitas.</p><button class="btn bp">Tonton Video</button></article>
+  <article class="ccrd gl" role="listitem"><div class="cico" aria-hidden="true"><i class="fas fa-hands-helping"></i></div><h3>Relawan</h3><p>Jadi bagian dari tim relawan untuk membantu menyebarkan bahasa isyarat.</p><button class="btn bp">Daftar Relawan</button></article>
+</div>
+</div>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="about-page">
+<div class="container" style="padding-top:40px;">
+<div class="awrap">
+  <div class="acrd gl">
+    <div class="abanner">
+      <h2>Tentang NusaSign</h2>
+      <p>Platform edukasi bahasa isyarat Indonesia yang didedikasikan untuk membuat pembelajaran menjadi menyenangkan dan mudah diakses semua orang.</p>
+    </div>
+    <div class="astats gl2" role="list" aria-label="Statistik NusaSign">
+      <div class="astat" role="listitem"><div class="abig">2025</div><div class="asm">Tahun Didirikan</div></div>
+      <div class="astat" role="listitem"><div class="abig">100+</div><div class="asm">Pengguna Aktif</div></div>
+      <div class="astat" role="listitem"><div class="abig">Sunda</div><div class="asm">Bahasa Daerah</div></div>
+    </div>
+    <div class="abody">
+      <p>NusaSign adalah platform edukasi bahasa isyarat Indonesia yang menggabungkan pendekatan gamifikasi dengan konten edukasi berkualitas tinggi untuk menciptakan pengalaman belajar yang efektif dan inklusif.</p>
+      <h3>Tim Kami</h3>
+      <p>NusaSign dikembangkan oleh kami, sekelompok siswa MAN 13 Jakarta yang peduli terhadap inklusi dan aksesibilitas komunikasi bagi teman tuli di ruang publik. Di tengah keterbatasan fasilitas dan akses, kami berinisiatif menciptakan solusi sederhana namun berdampak: sebuah website yang dapat menerjemahkan gerakan tangan (BISINDO) menjadi teks secara real-time, sekaligus menjadi media edukasi bahasa isyarat untuk masyarakat umum.</p>
+      <p>Kami percaya bahwa inovasi tidak harus menunggu nanti — kami memulainya sekarang. Dalam proses pengembangan, kami juga melibatkan komunitas tuli secara langsung, agar sistem yang dibangun benar-benar sesuai dengan kebutuhan nyata di lapangan.</p>
+      <button class="btn bp" style="margin-top:12px;" aria-label="Hubungi tim NusaSign"><i class="fas fa-envelope" aria-hidden="true"></i> Hubungi Kami</button>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+</main>
+
+<footer>
+<div class="container">
+  <div class="fgrid">
+    <div class="fbrand">
+      <a class="flogo" href="#" aria-label="NusaSign beranda"><div class="flico" aria-hidden="true"><i class="fas fa-hands"></i></div><span class="flname">NusaSign</span></a>
+      <p>Platform edukasi bahasa isyarat Indonesia pertama yang interaktif dan mudah diakses oleh semua orang.</p>
+      <div class="socs" aria-label="Media sosial">
+        <a class="sb" href="#" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+        <a class="sb" href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+        <a class="sb" href="#" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+        <a class="sb" href="#" aria-label="TikTok"><i class="fab fa-tiktok" aria-hidden="true"></i></a>
+      </div>
+    </div>
+    <div class="fc2"><h4>Perusahaan</h4><ul><li><a class="footer-link" data-page="about" href="#">Tentang Kami</a></li><li><a href="#">Tim</a></li><li><a href="#">Karir</a></li><li><a href="#">Mitra</a></li></ul></div>
+    <div class="fc2"><h4>Sumber Belajar</h4><ul><li><a class="footer-link" data-page="games" href="#">Games</a></li><li><a class="footer-link" data-page="edukasi" href="#">Edukasi</a></li><li><a href="#">Kamus</a></li><li><a href="#">Blog</a></li></ul></div>
+    <div class="fc2"><h4>Dukungan</h4><ul><li><a href="#">Bantuan</a></li><li><a href="#">Kontak</a></li><li><a href="#">Kebijakan Privasi</a></li><li><a href="#">Syarat &amp; Ketentuan</a></li></ul></div>
+  </div>
+  <div class="fbot">&#169; 2025 NusaSign &nbsp;&middot;&nbsp; Dibuat dengan &#10084;&#65039; untuk komunitas Tuli Indonesia</div>
+</div>
+</footer>
+
+<script>
+const TRANSLATION_MAP={"Bermain":"Ulin","Berpikir":"Ngarasula","Bicara":"Nyarios","Duduk":"Diuk","Makan":"Neda","Mandi":"Mandi","Melihat":"Ningali","Membaca":"Maca","Membuat":"Ngadamel","Memeluk":"Mihak","Memukul":"Ngalempar","Menangis":"Ceurik","Mendorong":"Nyurung","Menggambar":"Ngagambar","Menuangkan":"Ngalebetkeun","Minum":"Nginum","Saya":"Abdi","Tidur":"Sare","berhenti":"Eureun"};
+let currentMode='letter';
+(function(){const s=localStorage.getItem('nusasign_theme');const sys=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',s||sys)})();
+document.getElementById('theme-btn').addEventListener('click',function(){const h=document.documentElement;const n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('nusasign_theme',n);this.setAttribute('aria-label',n==='dark'?'Ganti ke tema terang':'Ganti ke tema gelap')});
+const mn=document.getElementById('mob-nav'),hb=document.getElementById('ham-btn'),mc=document.getElementById('mclose'),mbd=document.getElementById('mbd');
+function openM(){mn.classList.add('open');hb.setAttribute('aria-expanded','true');mc.focus();document.body.style.overflow='hidden'}
+function closeM(){mn.classList.remove('open');hb.setAttribute('aria-expanded','false');hb.focus();document.body.style.overflow=''}
+hb.addEventListener('click',openM);mc.addEventListener('click',closeM);mbd.addEventListener('click',closeM);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
+document.addEventListener('DOMContentLoaded',function(){
+  const pages={home:document.getElementById('home-page'),translator:document.getElementById('translator-page'),games:document.getElementById('games-page'),edukasi:document.getElementById('edukasi-page'),community:document.getElementById('community-page'),about:document.getElementById('about-page'),quiz:document.getElementById('quiz-page')};
+  const navLinks={home:document.getElementById('home-nav'),translator:document.getElementById('translator-nav'),games:document.getElementById('games-nav'),edukasi:document.getElementById('edukasi-nav'),community:document.getElementById('community-nav'),about:document.getElementById('about-nav')};
+  const mlinks=document.querySelectorAll('.mlink');
+  function showPage(id){Object.values(pages).forEach(p=>p.classList.remove('active'));Object.values(navLinks).forEach(l=>l.classList.remove('active'));mlinks.forEach(l=>l.classList.remove('active'));if(pages[id])pages[id].classList.add('active');if(navLinks[id])navLinks[id].classList.add('active');const ml=document.querySelector(`.mlink[data-page="${id}"]`);if(ml)ml.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});closeM()}
+  Object.entries(navLinks).forEach(([id,el])=>el.addEventListener('click',e=>{e.preventDefault();showPage(id)}));
+  mlinks.forEach(l=>l.addEventListener('click',e=>{e.preventDefault();showPage(l.dataset.page)}));
+  document.getElementById('home-link').addEventListener('click',e=>{e.preventDefault();showPage('home')});
+  document.getElementById('start-learning').addEventListener('click',()=>showPage('games'));
+  document.getElementById('learn-more-btn').addEventListener('click',e=>{e.preventDefault();showPage('edukasi')});
+  showPage('home');
+  function setMode(mode){currentMode=mode;fetch('/set_mode',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode})}).catch(console.error);const isL=mode==='letter';document.getElementById('alphabet-result').style.display=isL?'block':'none';document.getElementById('phrase-result').style.display=isL?'none':'block';const ab=document.getElementById('alphabet-mode');const pb=document.getElementById('phrase-mode');ab.classList.toggle('active',isL);ab.setAttribute('aria-pressed',String(isL));pb.classList.toggle('active',!isL);pb.setAttribute('aria-pressed',String(!isL))}
+  document.getElementById('alphabet-mode').addEventListener('click',()=>setMode('letter'));
+  document.getElementById('phrase-mode').addEventListener('click',()=>setMode('word'));
+  let _lastPred='';
+  async function _translate(word,lang){try{const r=await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=id&tl=${lang}&dt=t&q=${encodeURIComponent(word)}`);const d=await r.json();return d?.[0]?.[0]?.[0]||word;}catch{return word;}}
+  async function updatePrediction(){
+    try{
+      const r=await fetch(`/get_prediction?mode=${currentMode}`);
+      const data=await r.json();
+      const pred=data.prediction||'';
+      if(currentMode==='letter'){
+        document.getElementById('alphabet-letter').textContent=pred||'–';
+      }else{
+        const c=document.getElementById('phrase-translation');
+        const sel=document.getElementById('lang-select');
+        const lang=sel?sel.value:'';
+        if(!pred){c.innerHTML='<span style="font-size:.9rem;font-weight:400;color:var(--text3)">Belum ada kata terdeteksi</span>';_lastPred='';return;}
+        if(!lang){
+          c.innerHTML=`<span>${pred}</span>`;
+        }else if(pred!==_lastPred){
+          c.innerHTML=`<span>${pred}</span><span style="font-size:.85rem;color:var(--text3);font-weight:400">menerjemahkan...</span>`;
+          const tr=await _translate(pred,lang);
+          const ln=sel.options[sel.selectedIndex].text.replace(/^.+?\s/,'');
+          c.innerHTML=`<span>${pred}</span><span style="font-size:1.3rem;color:var(--pri);font-weight:600">${tr}</span><span style="font-size:.75rem;color:var(--text3);font-weight:400">${ln}</span>`;
+        }
+        _lastPred=pred;
+      }
+    }catch(e){console.warn('Polling:',e);}
+  }
+  setInterval(updatePrediction,1000);
+  window.startCamera=function(){const s=document.getElementById('video-stream');const ph=s.previousElementSibling;s.style.display='block';if(ph)ph.style.display='none';const src=s.src||'/video?mode=letter';s.src='';setTimeout(()=>{s.src=src},100)};
+  window.resetCamera=function(){const s=document.getElementById('video-stream');const ph=s.previousElementSibling;s.src='';s.style.display='none';if(ph)ph.style.display='flex';setTimeout(()=>{s.src='/video?mode=letter';s.style.display='block';if(ph)ph.style.display='none'},300);document.getElementById('alphabet-letter').textContent='–';document.getElementById('phrase-translation').innerHTML=''};
+  function speak(t){if(!('speechSynthesis' in window)){alert('TTS tidak didukung.');return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='id-ID';u.rate=0.9;speechSynthesis.speak(u)}
+  window.speakTranslation=function(){const t=document.getElementById('text-output').value;if(t)speak(t);else alert('Tidak ada teks untuk diucapkan.')};
+  /* ── LANGUAGE DATA ── */
+  // Hanya kode yang benar-benar didukung Google Translate API
+  const REGIONAL_LANGS=[
+    {code:'id', name:'Indonesia',    flag:'🇮🇩'},
+    {code:'su', name:'Sunda',        flag:'🌿'},
+    {code:'jv', name:'Jawa',         flag:'🏛️'},
+    {code:'ban',name:'Bali',         flag:'🌺'},
+    {code:'min',name:'Minangkabau',  flag:'🏠'},
+    {code:'ace',name:'Aceh',         flag:'🕌'},
+    {code:'bbc',name:'Batak Toba',   flag:'⛰️'},
+    {code:'bug',name:'Bugis',        flag:'⚓'},
+    {code:'ms', name:'Melayu',       flag:'🌊'},
+    {code:'ceb',name:'Cebuano',      flag:'🐚'},
+    {code:'ilo',name:'Ilokano',      flag:'🌾'},
+    {code:'tl', name:'Tagalog',      flag:'🌞'},
+  ];
+  let fromLang=REGIONAL_LANGS[0], toLang=REGIONAL_LANGS[1];
+
+  function buildLangList(listEl,searchEl,pickBtnEl,dropEl,onSelect){
+    function render(q=''){
+      const filtered=REGIONAL_LANGS.filter(l=>l.name.toLowerCase().includes(q.toLowerCase())||l.code.includes(q.toLowerCase()));
+      listEl.innerHTML=filtered.map(l=>`<button class="lang-opt${(pickBtnEl===document.getElementById('from-btn')&&l.code===fromLang.code)||(pickBtnEl===document.getElementById('to-btn')&&l.code===toLang.code)?' sel':''}" data-code="${l.code}" role="option" aria-selected="${l.code===(pickBtnEl===document.getElementById('from-btn')?fromLang.code:toLang.code)}"><span class="lflag">${l.flag}</span><span>${l.name}</span><span class="lcode">${l.code}</span></button>`).join('');
+      listEl.querySelectorAll('.lang-opt').forEach(btn=>btn.addEventListener('click',()=>{
+        const lang=REGIONAL_LANGS.find(l=>l.code===btn.dataset.code);
+        if(lang){onSelect(lang);dropEl.classList.remove('open');pickBtnEl.classList.remove('open');pickBtnEl.setAttribute('aria-expanded','false')}
+      }));
+    }
+    render();
+    searchEl.addEventListener('input',()=>render(searchEl.value));
+    pickBtnEl.addEventListener('click',e=>{
+      e.stopPropagation();
+      const isOpen=dropEl.classList.contains('open');
+      document.querySelectorAll('.lang-dropdown').forEach(d=>{d.classList.remove('open')});
+      document.querySelectorAll('.lang-pick-btn').forEach(b=>{b.classList.remove('open');b.setAttribute('aria-expanded','false')});
+      if(!isOpen){dropEl.classList.add('open');pickBtnEl.classList.add('open');pickBtnEl.setAttribute('aria-expanded','true');searchEl.value='';render();searchEl.focus()}
+    });
+  }
+
+  function updatePickBtn(btnEl,lang){
+    btnEl.querySelector('.flag').textContent=lang.flag;
+    btnEl.querySelector('.lname').textContent=lang.name;
+  }
+
+  buildLangList(
+    document.getElementById('from-list'),
+    document.getElementById('from-search'),
+    document.getElementById('from-btn'),
+    document.getElementById('from-drop'),
+    (lang)=>{fromLang=lang;updatePickBtn(document.getElementById('from-btn'),lang)}
+  );
+  buildLangList(
+    document.getElementById('to-list'),
+    document.getElementById('to-search'),
+    document.getElementById('to-btn'),
+    document.getElementById('to-drop'),
+    (lang)=>{toLang=lang;updatePickBtn(document.getElementById('to-btn'),lang)}
+  );
+
+  document.getElementById('swap-langs').addEventListener('click',()=>{
+    [fromLang,toLang]=[toLang,fromLang];
+    updatePickBtn(document.getElementById('from-btn'),fromLang);
+    updatePickBtn(document.getElementById('to-btn'),toLang);
+    // also swap textarea values
+    const i=document.getElementById('text-input'),o=document.getElementById('text-output');
+    if(o.value&&o.value!=='Menerjemahkan...'&&o.value!=='Terjadi kesalahan saat menerjemahkan.'){
+      const tmp=i.value;i.value=o.value;o.value=tmp;
+    }
+  });
+
+  document.addEventListener('click',()=>{
+    document.querySelectorAll('.lang-dropdown').forEach(d=>d.classList.remove('open'));
+    document.querySelectorAll('.lang-pick-btn').forEach(b=>{b.classList.remove('open');b.setAttribute('aria-expanded','false')});
+  });
+
+  /* Char counter */
+  const textInput=document.getElementById('text-input');
+  const charCount=document.getElementById('char-count');
+  textInput.addEventListener('input',function(){
+    const n=this.value.length;
+    charCount.textContent=n+'/500';
+    charCount.className='char-count'+(n>450?' warn':'')+(n>=500?' over':'');
+  });
+
+  document.getElementById('translate-btn').addEventListener('click',async function(){
+    const inp=document.getElementById('text-input').value.trim();
+    const out=document.getElementById('text-output');
+    if(!inp){showToast('Masukkan teks terlebih dahulu','err');return}
+    if(fromLang.code===toLang.code){showToast('Pilih bahasa yang berbeda','err');return}
+    out.value='Menerjemahkan...';
+    this.disabled=true;
+    const btn=this;
+    try{
+      const url=`https://translate.googleapis.com/translate_a/single?client=gtx&sl=${encodeURIComponent(fromLang.code)}&tl=${encodeURIComponent(toLang.code)}&dt=t&q=${encodeURIComponent(inp)}`;
+      const res=await fetch(url);
+      if(!res.ok)throw new Error('HTTP '+res.status);
+      const data=await res.json();
+      const result=data?.[0]?.map(x=>x?.[0]||'').join('')||'';
+      if(result){out.value=result;showToast('Terjemahan berhasil','ok')}
+      else{out.value='Terjemahan tidak ditemukan.';showToast('Terjemahan tidak ditemukan','err')}
+    }catch(e){
+      out.value='';
+      showToast('Gagal terhubung ke layanan terjemahan','err');
+      console.warn('Translate error:',e);
+    }finally{btn.disabled=false}
+  });
+  document.getElementById('text-input').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();document.getElementById('translate-btn').click()}});
+  let bookmarks=[];try{bookmarks=JSON.parse(localStorage.getItem('nusasign_bookmarks'))||[]}catch{}
+  function renderBM(){const c=document.getElementById('bookmarks-grid');if(!c)return;if(!bookmarks.length){c.innerHTML='<div class="ebm"><i class="fas fa-book-open" aria-hidden="true"></i><strong style="display:block;margin-bottom:6px;color:var(--text2);">Belum ada bookmark tersimpan</strong><p>Simpan hasil terjemahan untuk melihatnya di sini</p></div>';return}c.innerHTML='';bookmarks.forEach(bm=>{const d=document.createElement('div');d.className='bmc gl2';const dl=bm.direction||'Indonesia → Sunda';d.innerHTML=`<div class="bmhd"><span class="bmtag">${bm.type==='text'?'Teks':'Gestur'}</span><span class="bmtime">${bm.timestamp}</span></div><p class="bmtxt"><strong>${dl}</strong><br>${bm.input} → ${bm.output}</p><div class="bmacts"><button class="btn bg2" style="font-size:.8rem;padding:7px 14px;" onclick="(function(){if('speechSynthesis' in window){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance('${bm.output.replace(/'/g,"\'")}');u.lang='id-ID';speechSynthesis.speak(u);}})()"><i class="fas fa-volume-up" aria-hidden="true"></i> Ucapkan</button><button class="btn bd" style="font-size:.8rem;padding:7px 14px;" onclick="deleteBookmark(${bm.id})"><i class="fas fa-trash" aria-hidden="true"></i> Hapus</button></div>`;c.appendChild(d)})}
+  window.saveBookmark=function(type){const inp=document.getElementById('text-input')?.value.trim();const out=document.getElementById('text-output')?.value.trim();if(!inp||!out||out==='Menerjemahkan...'){showToast('Tidak ada hasil terjemahan!','err');return}const dirLabel=(fromLang?fromLang.name:'id')+' → '+(toLang?toLang.name:'su');bookmarks.push({id:Date.now(),type,timestamp:new Date().toLocaleString('id-ID'),direction:dirLabel,input:inp,output:out});try{localStorage.setItem('nusasign_bookmarks',JSON.stringify(bookmarks))}catch{}renderBM();showToast('Bookmark berhasil disimpan!','ok')};
+  window.deleteBookmark=function(id){if(!confirm('Hapus bookmark ini?'))return;bookmarks=bookmarks.filter(b=>b.id!==id);try{localStorage.setItem('nusasign_bookmarks',JSON.stringify(bookmarks))}catch{}renderBM()};
+  renderBM();
+  document.querySelectorAll('.language-tab').forEach(tab=>tab.addEventListener('click',function(){const lang=this.dataset.lang;document.querySelectorAll('.language-tab').forEach(t=>{t.classList.remove('active');t.setAttribute('aria-selected','false')});document.querySelectorAll('.language-content').forEach(c=>c.classList.remove('active'));this.classList.add('active');this.setAttribute('aria-selected','true');document.getElementById(`${lang}-content`)?.classList.add('active')}));
+  document.querySelectorAll('.footer-link').forEach(l=>l.addEventListener('click',e=>{e.preventDefault();showPage(l.dataset.page)}));
+  const quizzes={bisindo:{title:"Kuis BISINDO Dasar",level:"Level 1 · Dasar-dasar BISINDO",questions:[{question:"Apa yang dimaksud dengan 'kode jari' (fingerspelling) dalam konteks BISINDO?",options:["Isyarat untuk menunjukkan angka","Menyusun kalimat dengan gambar","Mengeja kata demi kata menggunakan bentuk jari","Bahasa isyarat dari luar negeri"],answer:2},{question:"Mengapa penting menjaga kontak mata saat berkomunikasi dengan BISINDO?",options:["Tanda sopan santun","Membuat orang takut","Supaya tangan tidak kelihatan","Supaya cepat selesai"],answer:0},{question:"Apa kepanjangan dari BISINDO?",options:["Bahasa Indonesia Standar Internasional","Bahasa Isyarat Nasional Daerah Otonom","Bahasa Isyarat Indonesia","Bahasa Isyarat Dunia"],answer:2},{question:"Apa perbedaan utama antara BISINDO dan SIBI?",options:["BISINDO menggunakan bahasa Inggris sebagai dasar","BISINDO lebih menekankan pada gramatika lisan","BISINDO berkembang secara alami dari komunitas Tuli","BISINDO menggunakan sistem ejaan tangan"],answer:2},{question:"Mengapa ekspresi wajah penting dalam penggunaan BISINDO?",options:["Untuk menarik perhatian orang lain","Untuk memperjelas makna dan emosi dalam komunikasi","Karena tidak ada suara dalam BISINDO","Sebagai hiasan dalam bahasa isyarat"],answer:1}]},alfabet:{title:"Game Alfabet BISINDO",level:"Level 2 · Huruf Vokal",questions:[{question:"Simbol tangan untuk huruf 'A' dalam BISINDO biasanya ditunjukkan dengan...?",options:["Telapak tangan terbuka ke atas","Ibu jari dan telunjuk membentuk pola seperti segi tiga","Kelingking menunjuk ke atas lalu digerakkan ke bawah","Dua jari membentuk huruf V"],answer:1},{question:"Apa yang dimaksud dengan 'kode jari' (fingerspelling)?",options:["Isyarat untuk menunjukkan angka","Menyusun kalimat dengan gambar","Mengeja kata demi kata menggunakan bentuk jari","Bahasa isyarat dari luar negeri"],answer:2},{question:"Bagaimana isyarat untuk huruf 'E'?",options:["Telapak tangan menghadap ke depan dengan jari telunjuk dan tengah diangkat","Telapak tangan menghadap ke depan dengan keempat jari dirapatkan dan ditekuk","Telapak tangan menghadap ke samping dengan jari telunjuk dan jari tengah membentuk V","Telapak tangan menghadap ke diri sendiri dengan jari telunjuk, tengah dan manis diangkat"],answer:3}]},salam:{title:"Game Salam Daerah",level:"Level 1 · Salam Dasar",questions:[{question:"Bahasa isyarat bisa berbeda di tiap daerah. Ini menunjukkan bahwa...",options:["Bahasa isyarat bersifat universal","Bahasa isyarat lokal sangat kuat","Bahasa isyarat tidak bisa dimengerti","Tidak perlu belajar BISINDO"],answer:1},{question:"Bagaimana isyarat 'Selamat Pagi' dalam BISINDO?",options:["Tangan kanan terbuka menyentuh dahi lalu turun ke depan","Kedua tangan menyilang di dada lalu membuka ke samping","Tangan kanan mengepal lalu membuka dengan jari terbuka","Tangan kiri menepuk dada lalu tangan kanan mengangguk"],answer:0},{question:"Isyarat untuk 'Terima Kasih' di Jawa adalah:",options:["Kedua tangan menyatu di depan dada dengan kepala menunduk","Tangan kanan menyentuh dahi lalu turun ke dagu","Tangan kiri di dada, tangan kanan menggerakkan jari","Kedua tangan terbuka lalu menyilang di depan dada"],answer:0}]}};
+  let cq=null,cqi=0,qs=0;
+  window.startQuiz=function(id){cq=quizzes[id];if(!cq)return;cqi=0;qs=0;showPage('quiz');renderQuiz()};
+  document.querySelectorAll('.start-quiz').forEach(b=>b.addEventListener('click',function(){startQuiz(this.dataset.quiz)}));
+  function renderQuiz(){const container=document.querySelector('#quiz-page .container');const q=cq.questions[cqi];const prog=(cqi/cq.questions.length)*100;const tot=cq.questions.length;container.innerHTML=`<div class="qwrap gl"><div class="qhead"><div class="qht"><div><h3>${cq.title}</h3><p>${cq.level}</p></div><span class="qcnt" aria-label="Pertanyaan ${cqi+1} dari ${tot}">${cqi+1} / ${tot}</span></div><div class="qpb" role="progressbar" aria-valuenow="${Math.round(prog)}" aria-valuemin="0" aria-valuemax="100"><div class="qpf" style="width:${prog}%"></div></div></div><div class="qbody"><p class="qq" id="qq">${q.question}</p><div class="qopts" role="group" aria-labelledby="qq">${q.options.map((o,i)=>`<button class="qopt" data-index="${i}" aria-label="Pilihan ${String.fromCharCode(65+i)}: ${o}"><span class="ol" aria-hidden="true">${String.fromCharCode(65+i)}</span><span class="ot">${o}</span></button>`).join('')}</div><div class="qa"><button class="btn bg2" id="prev-btn" ${cqi===0?'disabled':''} aria-label="Pertanyaan sebelumnya"><i class="fas fa-arrow-left" aria-hidden="true"></i> Sebelumnya</button><button class="btn bp" id="next-btn" disabled aria-label="Pertanyaan berikutnya">Selanjutnya <i class="fas fa-arrow-right" aria-hidden="true"></i></button></div></div><div class="qres" aria-live="assertive"><div class="re" role="img" aria-label="Trofi">&#127942;</div><h3 class="rt">Quiz Selesai!</h3><div class="rs">${Math.round((qs/tot)*100)}%</div><p class="rd">Anda menjawab <strong>${qs}</strong> dari <strong>${tot}</strong> pertanyaan dengan benar</p><div class="rbtns"><button class="btn bp" id="restart-btn"><i class="fas fa-redo" aria-hidden="true"></i> Main Lagi</button><button class="btn bg2" id="back-games"><i class="fas fa-gamepad" aria-hidden="true"></i> Kembali ke Games</button></div></div></div>`;
+  document.querySelectorAll('.qopt').forEach(opt=>opt.addEventListener('click',function(){if(this.classList.contains('correct')||this.classList.contains('incorrect'))return;const sel=parseInt(this.dataset.index);const correct=cq.questions[cqi].answer;document.querySelectorAll('.qopt').forEach(o=>{o.classList.remove('selected','correct','incorrect');o.style.pointerEvents='none'});this.classList.add('selected');document.getElementById('next-btn').disabled=false;setTimeout(()=>{if(sel===correct){this.classList.replace('selected','correct');qs++}else{this.classList.replace('selected','incorrect');document.querySelector(`.qopt[data-index="${correct}"]`)?.classList.add('correct')}},500)}));
+  document.getElementById('prev-btn').addEventListener('click',()=>{if(cqi>0){cqi--;renderQuiz()}});
+  document.getElementById('next-btn').addEventListener('click',()=>{cqi++;if(cqi<cq.questions.length){renderQuiz()}else{document.querySelector('.qbody').style.display='none';const res=document.querySelector('.qres');res.style.display='block';res.querySelector('.rs').textContent=Math.round((qs/cq.questions.length)*100)+'%';res.querySelector('.rd').innerHTML=`Anda menjawab <strong>${qs}</strong> dari <strong>${cq.questions.length}</strong> pertanyaan dengan benar`;document.querySelector('.qpf').style.width='100%';document.getElementById('restart-btn').addEventListener('click',()=>{const k=Object.keys(quizzes).find(k=>quizzes[k]===cq);startQuiz(k)});document.getElementById('back-games').addEventListener('click',()=>showPage('games'))}})}
+
+  /* ── TOAST ── */
+  function showToast(msg,type='ok'){
+    const t=document.getElementById('toast');
+    t.className='toast '+(type==='ok'?'ok':'err');
+    t.innerHTML=`<i class="fas ${type==='ok'?'fa-check-circle':'fa-exclamation-circle'}" aria-hidden="true"></i>${msg}`;
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2800);
+  }
+
+  /* ── RIPPLE (fixed — single delegation, no duplicates) ── */
+  document.addEventListener('click',function(e){
+    const host=e.target.closest('.ripple-host');
+    if(!host)return;
+    const existing=host.querySelectorAll('.ripple');
+    existing.forEach(r=>r.remove());
+    const r=document.createElement('span');
+    r.className='ripple';
+    const rect=host.getBoundingClientRect();
+    const size=Math.max(rect.width,rect.height)*2;
+    const x=e.clientX-rect.left-size/2;
+    const y=e.clientY-rect.top-size/2;
+    r.style.width=r.style.height=size+'px';
+    r.style.left=x+'px';
+    r.style.top=y+'px';
+    r.style.pointerEvents='none';
+    host.appendChild(r);
+    r.addEventListener('animationend',()=>r.remove(),{once:true});
+  });
+
+  /* ── SCROLL REVEAL ── */
+  const ro=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')});
+  },{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+  /* ── SCROLL TO TOP ── */
+  const scrtop=document.getElementById('scrtop');
+  window.addEventListener('scroll',()=>{scrtop.classList.toggle('show',window.scrollY>320)});
+  scrtop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+  /* ── COUNTER ANIMATION ── */
+  function animateCounter(el,target,suffix=''){
+    const isPlus=suffix.includes('+');
+    const isPct=suffix.includes('%');
+    const num=parseInt(target.replace(/[^0-9]/g,''));
+    let start=0;const dur=1200;const step=dur/60;
+    const inc=num/60;
+    const timer=setInterval(()=>{
+      start=Math.min(start+inc,num);
+      el.textContent=Math.floor(start)+(isPlus?'+':isPct?'%':'');
+      if(start>=num){clearInterval(timer);el.classList.add('pop')}
+    },step);
+  }
+  const statNums=document.querySelectorAll('.snum');
+  const statObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting&&!e.target.dataset.counted){
+        e.target.dataset.counted='1';
+        const raw=e.target.textContent;
+        animateCounter(e.target,raw,raw.replace(/[0-9]/g,''));
+      }
+    });
+  },{threshold:0.5});
+  statNums.forEach(el=>statObs.observe(el));
+});
+</script>
+<button class="scrtop" id="scrtop" aria-label="Kembali ke atas"><i class="fas fa-chevron-up" aria-hidden="true"></i></button>
+<div class="toast" id="toast" aria-live="assertive"></div>
+</body>
+</html>
